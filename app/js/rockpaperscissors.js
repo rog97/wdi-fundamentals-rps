@@ -4,9 +4,10 @@
 'use strict';
 
 function getInput() {
-    console.log("Please choose either 'rock', 'paper', or 'scissors'.")
+    console.log("Please choose either 'rock', 'paper', or 'scissors'.");
     return prompt();
 }
+
 function randomPlay() {
     var randomNumber = Math.random();
     if (randomNumber < 0.33) {
@@ -17,19 +18,23 @@ function randomPlay() {
         return "scissors";
     }
 }
+
 ////////////////////////////////////////////////
 /*           Write Your Code Below            */
 ////////////////////////////////////////////////
 
 function getPlayerMove(move) {
-    move = move || getInput();
+    move = getInput();
     return move;
 }
 
 function getComputerMove(move) {
-    move = move || randomPlay();
+    move = randomPlay();
     return move;
 }
+
+var playerMove = getPlayerMove();
+var computerMove = getComputerMove();
 
 function getWinner(playerMove,computerMove) {
     var winner;
@@ -54,17 +59,19 @@ function getWinner(playerMove,computerMove) {
 function playToFive() {
     console.log("Let's play Rock, Paper, Scissors");
     var playerWins = 0;
-    var computerWins = 0;
-    var winner = getWinner(getPlayerMove(),getComputerMove());    
+    var computerWins = 0;    
     while (playerWins < 5 && computerWins < 5) {
-        if (winner === 'player') {
-            playerWins ++ ;
-        } else if (winner === 'computer') {
-            computerWins ++ ;
-        }
-        console.log('Player chose ' + playerMove + ' while Computer chose '+ computerMove);
-        console.log('The score is currently '+ playerWins + ' to ' + computerWins + '\n');
-    return [playerWins, computerWins];
+        var playerMove = getPlayerMove();
+        var computerMove = getComputerMove();
+        var result = getWinner(playerMove, computerMove);
+        console.log("Player: " + playerMove + " - Computer: " + computerMove);
+        result === 'player'? playerWins += 1 : result === 'computer'? computerWins +=1 : 'tie'
+        console.log("Player score: " + playerWins + " - Computer score: " + computerWins + '\n');
+    }
+    if (playerWins === 5) {
+        console.log("Go human beings!");
+    } else {
+        console.log("Damn you cyborg!");
     }
 }
-
+playToFive();
